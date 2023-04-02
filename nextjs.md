@@ -96,3 +96,23 @@ export default function SettingsLayout() {
 A **page** is UI that is unique to a route segment. You can create a page by adding a `page.js` file inside a folder.
 
 For a route to be valid, it needs to have a page in its leaf segment. If it doesn't, the route will throw an error.
+
+七、[Route Group](https://nextjs.org/blog/layouts-rfc#route-groups)
+
+- 用 `()` 包裹命名一个文件夹：A route group can be created by wrapping a folder’s name in parenthesis: `(folderName)`
+
+- 不影响路由：The naming of route groups are only for organizational purposes since they do not affect the URL path
+
+作用：
+
+1. 抽离出 layout，不受 layout 布局影响
+
+![route group-作用1](https://nextjs.org/_next/image?url=%2Fstatic%2Fblog%2Flayouts-rfc%2Froute-group-opt-out-before.png&w=3840&q=75)
+
+2. 管理（组织）相关路由
+
+![route group-作用2](https://nextjs.org/_next/image?url=%2Fstatic%2Fblog%2Flayouts-rfc%2Froute-group-organisation.png&w=3840&q=75)
+
+3. 创建多 Root layout
+
+![route group-作用3](https://nextjs.org/_next/image?url=%2Fstatic%2Fblog%2Flayouts-rfc%2Froute-group-multiple-root.png&w=3840&q=75)
