@@ -32,11 +32,11 @@ public：静态资源目录
 
 To ensure these new improvements can be incrementally adopted and avoid breaking changes, we are proposing a new directory called `app`. This directory is for using the new features.
 
----当前项目仅记录 app router 的情况---
+----------  *以下，均为 app router 情况*  ----------
 
-四、路由
+四、[defining-routes](https://nextjs.org/blog/layouts-rfc#defining-routes)
 
-以 **文件夹** 的形式来定义路由，以 **文件** 的形式来定义页面，并且有新的协定：
+以 **文件夹** 的形式来定义路由，以 **文件** 的形式来定义页面，并且有新的约定：
 
 - `layout.tsx`：代表当前路径页面的 layout 模板（在`page.tsx`的外层）
 - `page.tsx`：代表当前路径的 UI 页面
@@ -60,3 +60,39 @@ app
       -- page.tsx => `/dashboard/settigs`
 ```
 
+五、[Layout](https://nextjs.org/blog/layouts-rfc#layouts)
+
+A **layout** is UI that is shared between route segments in a subtree. Layouts **do not affect URL paths** and d**o not re-render** (React state is preserved) when a user navigates between sibling segments.
+
+分两种：
+
+- Root layout：to customize the initial document shell (e.g. `<html>` and `<body>` tags)
+- Regular layout：inside a specific folder
+
+
+
+`layout.tsx` 不会渲染到 UI 上
+
+```tsx
+import React from 'react'
+
+export default function SettingsLayout() {
+    return (
+        <>
+            <div>SettingsLayout</div>
+        </>
+    )
+}
+```
+
+如 `settings/layout.tsx` 的结构如上，`/dashboard/settings` 不会渲染  `settings/layout.tsx` 的内容。
+
+一个合法的 `layout.tsx` 须是一个接受 `children` props 的 React 组件，`layout.tsx` 包裹的页面(组件)将在 `children` 的位置渲染出来
+
+官方原话：A layout can be defined by default exporting a React component from a layout.js file. The component should accept a children prop which will be populated with the segments the layout is wrapping
+
+六、[Page](https://nextjs.org/blog/layouts-rfc#pages)
+
+A **page** is UI that is unique to a route segment. You can create a page by adding a `page.js` file inside a folder.
+
+For a route to be valid, it needs to have a page in its leaf segment. If it doesn't, the route will throw an error.
