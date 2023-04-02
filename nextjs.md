@@ -25,4 +25,3 @@ app：Next.JS 新特性增加的目录，新的目录约定
   -- page.module.css：只能在 page.tsx 中引入使用
 public：静态资源目录
 ```
-11111
