@@ -146,3 +146,39 @@ export default function Layout({children}) {
 </>
 ```
 
+九、[Error Handling](https://nextjs.org/blog/layouts-rfc#error-handling)
+
+Error boundaries are React components that catch JavaScript errors anywhere **in their child component tree**.
+
+You'll be able to create an Error Boundary that will catch errors within a **subtree** by adding a `error.js` file and default exporting a React Component.
+
+Errors inside a `layout.js` file in the same segment as an `error.js`  **will not be caught** as the automatic error boundary wraps the children of a layout and not the layout itself.
+
+```tsx
+// error.js
+export default function Error({ error, reset }) {
+  return (
+    <>
+      An error occurred: {error.message}
+      <button onClick={() => reset()}>Try again</button>
+    </>
+  );
+}
+
+// layout.js
+export default function Layout({children}) {
+  return (
+    <>
+      <Sidebar />
+      {children}
+    </>
+  )
+}
+
+// Output
+<>
+  <Sidebar />
+  <ErrorBoundary fallback={<Error />}>{children}</ErrorBoundary>
+</>
+```
+
