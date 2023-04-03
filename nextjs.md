@@ -116,3 +116,33 @@ For a route to be valid, it needs to have a page in its leaf segment. If it does
 3. 创建多 Root layout
 
 ![route group-作用3](https://nextjs.org/_next/image?url=%2Fstatic%2Fblog%2Flayouts-rfc%2Froute-group-multiple-root.png&w=3840&q=75)
+
+八、[Loading](https://nextjs.org/blog/layouts-rfc#instant-loading-states)
+
+The new router will use Suspense for instant loading states and default skeletons.
+
+Suspense boundaries will be automatically handled behind-the-scenes with a new file convention called `loading.js`.
+
+```tsx
+// loading.js
+export default function Loading() {
+  return <YourSkeleton />
+}
+
+// layout.js
+export default function Layout({children}) {
+  return (
+    <>
+      <Sidebar />
+      {children}
+    </>
+  )
+}
+
+// Output
+<>
+  <Sidebar />
+  <Suspense fallback={<Loading />}>{children}</Suspense>
+</>
+```
+
