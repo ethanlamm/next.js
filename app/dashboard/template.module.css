@@ -1,0 +1,6 @@
+.container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 5px #ccc;
+}
