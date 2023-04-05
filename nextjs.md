@@ -182,3 +182,31 @@ export default function Layout({children}) {
 </>
 ```
 
+十、[Template](https://nextjs.org/blog/layouts-rfc#templates)
+
+Templates are similar to Layouts in that they wrap each child Layout or Page
+
+Unlike Layouts that persist across routes and maintain state, templates **create a new instance** for each of their children. This means that when a user navigates between route segments that share a template, **a new instance** of the component is mounted
+
+We recommend using Layouts unless you have a specific reason to use a Template.
+
+A template can be defined by exporting a default React component from a `template.js` file. The component should accept a **children** prop which will be populated with nested segments.
+
+```tsx
+// template.js
+export default function Template({ children }) {
+  return <Container>{children}</Container>;
+}
+
+// The rendered output of a route segment with a Layout and a Template will be as such:
+<Layout>
+  {/* Note that the template is given a unique key. */}
+  <Template key={routeParam}>{children}</Template>
+</Layout>
+```
+
+usage:
+
+- Enter/exit animations using CSS or animation libraries
+- Features that rely on `useEffect` (e.g logging page views) and `useState` (e.g a per-page feedback form)
+- To change the default framework behavior. E.g. suspense boundaries inside Layouts only show the fallback the first time the Layout is loaded and not when switching pages. For templates, the fallback is shown on each navigation.
