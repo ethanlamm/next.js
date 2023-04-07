@@ -210,3 +210,36 @@ usage:
 - Enter/exit animations using CSS or animation libraries
 - Features that rely on `useEffect` (e.g logging page views) and `useState` (e.g a per-page feedback form)
 - To change the default framework behavior. E.g. suspense boundaries inside Layouts only show the fallback the first time the Layout is loaded and not when switching pages. For templates, the fallback is shown on each navigation.
+
+十一、[next/link](https://nextjs.org/docs/api-reference/next/link)
+
+Next.js 13 improved `next/link` ：The `next/link` **child** can no longer be `<a>`
+
+```
+import Link from 'next/link'
+
+<Link href='github.com'>github</Link>
+```
+
+- `href`：The only required prop, can also be an object
+
+```
+// object
+// 1.predefined route：/about?name=test
+<Link href={{
+		pathname:'/about',
+		query:{name:'test'}
+	}}>About us</Link>
+	
+// 2.dynamic route：/blog/my-post
+<Link href={{
+		pathname: '/blog/[slug]',
+        query: { slug: 'my-post' },
+      }}>Blog Post</Link>
+```
+
+- `prefetch`： Prefetch the page in the background. **Defaults to `true`**. Any `<Link />` that is in the viewport (initially or through scroll) will be preloaded. Prefetch can be disabled by passing `prefetch={false}`. When `prefetch` is set to `false`, prefetching will still occur on hover. Pages using Static Generation will preload `JSON` files with the data for faster page transitions. **Prefetching is only enabled in production**
+- `scroll`：Scroll to the top of the page after a navigation. Defaults to `true`
+- [`shallow`]([Routing: Shallow Routing | Next.js (nextjs.org)](https://nextjs.org/docs/routing/shallow-routing))：Shallow routing allows you to change the URL **without** running data fetching methods again, that includes [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props), [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props), and [`getInitialProps`](https://nextjs.org/docs/api-reference/data-fetching/get-initial-props). **Defaults to `false`**（means：by default, change the URL will run those data fetching mentioned above）
+
+**more informations, please read the [next/link](https://nextjs.org/docs/api-reference/next/link)**
